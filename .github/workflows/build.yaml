@@ -53,5 +53,5 @@ jobs:
       - name: Build & Push docker image for GHCR ${{ github.repository }}:${{ github.sha }}
         uses: macbre/push-to-ghcr@v13
         with:
-          image_name: ${{ github.repository }}/${{ github.base_ref }}/${{ github.sha}} # it will be lowercased internally
+          image_name: ${{ github.repository }} # it will be lowercased internally
           github_token: ${{ secrets.GITHUB_TOKEN }}
