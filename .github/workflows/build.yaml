@@ -54,7 +54,6 @@ jobs:
       - name: Build & Push docker image for GHCR ${{ env.GHCR_REGISTRY }}/${{ github.repository }}:${{ github.sha }}
         env:
           DOCKER_HUB_USER: ${{ secrets.GHCR_TOKEN }}
-        if: env.DOCKER_HUB_USER !== ''
         uses: docker/build-push-action@v5
         with:
           context: .
