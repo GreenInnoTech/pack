@@ -14,8 +14,8 @@ on:
       - main
 
 env:
-   IMAGE_NAMESPACE: "GreenInnoTech"
-   IMAGE_NAME: "pack"
+   GHCR_REGISTRY: "GreenInnoTech"
+   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   docker:
@@ -51,13 +51,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
           
-      - name: Build and push
+      - name: Build & Push docker image for GHCR ${{ env.GHCR_REGISTRY }}/${{ github.repository }}:${{ github.sha }}
+        env:
+          DOCKER_HUB_USER: ${{ secrets.GHCR_TOKEN }}
+        if: env.DOCKER_HUB_USER == ''
         uses: docker/build-push-action@v5
         with:
-           context: .
-           # Build image for verification purposes on every trigger event. Only push if event is not a PR
-           push: ${{ github.event_name != 'pull_request' }}
-           tags: ${{ steps.meta.outputs.tags }}
-           labels: ${{ steps.meta.outputs.labels }}
-           secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.GHCR_TOKEN }}
+          context: .
+          push: true
+          tags: ${{ env.GHCR_REGISTRY }}/${{ github.repository }}:${{ github.sha }}
