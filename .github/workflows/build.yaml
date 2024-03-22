@@ -50,10 +50,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push docker image for GHCR ${{ github.repository }}:${{ github.sha }}
-        uses: docker/build-push-action@v5
+        uses: macbre/push-to-ghcr@v13
         with:
-          context: .
-          push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
-          secrets: |
-            "github_token=${{ secrets.GITHUB_TOKEN }}" 
+          image_name: ${{ github.repository }}  # it will be lowercased internally
+          github_token: ${{ secrets.GITHUB_TOKEN }}
