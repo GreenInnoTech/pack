@@ -21,4 +21,4 @@ jobs:
           type: container
           keep: 3
           names: ${{ env.IMAGE_NAME }}
-          dry-run: true
+          #dry-run: true
