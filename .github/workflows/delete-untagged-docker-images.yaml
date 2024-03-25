@@ -1,0 +1,24 @@
+name: delete-untagged-docker-images
+
+on:
+  workflow_dispatch:
+
+env:
+  IMAGE_ORGA: "GreenInnoTech"
+  IMAGE_NAME: "pack"
+
+jobs:
+  delete-untagged-images:
+    runs-on: ubuntu-latest
+#    permissions:
+#      packages: delete
+
+    steps:
+      - name: Delete old packages
+        uses: SmartsquareGmbH/delete-old-packages@v0.8.0
+        with:
+          organization: ${{ env.IMAGE_ORGA }}
+          type: 'docker'
+          keep: 3
+          names: ${{ env.IMAGE_NAME }}
+          dry-run: true
