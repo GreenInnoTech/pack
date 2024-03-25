@@ -18,7 +18,7 @@ jobs:
         uses: SmartsquareGmbH/delete-old-packages@v0.8.0
         with:
           organization: ${{ env.IMAGE_ORGA }}
-          type: 'docker'
+          type: container
           keep: 3
           names: ${{ env.IMAGE_NAME }}
           dry-run: true
